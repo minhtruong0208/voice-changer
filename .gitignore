@@ -1,0 +1,17 @@
+# .gitignore
+# Môi trường ảo
+venv/
+env/
+
+# File bytecode Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# File .env chứa thông tin nhạy cảm
+.env
+
+# File audio tạm
+*.wav
+*.mp3
