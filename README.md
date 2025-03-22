@@ -15,8 +15,14 @@
    pip install -r requirements.txt
 
 4. **Cấu hình .env**
-   Tạo file .env trong thư mục gốc với nội dung:
+- Tạo file .env trong thư mục gốc với nội dung:
    ```bash
    AZURE_SUBSCRIPTION_KEY=your_azure_key
    AZURE_REGION=your_region
    DEFAULT_VOICE=vi-VN-HoaiMyNeural
+- Lấy key và region từ Azure Portal (Speech resource).
+
+5. **Chạy ứng dụng**
+   ```bash
+   python main.py
+- API sẽ chạy tại http://localhost:8000
