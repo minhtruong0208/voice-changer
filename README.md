@@ -26,6 +26,7 @@
    AZURE_REGION=your_region
    DEFAULT_VOICE=vi-VN-HoaiMyNeural
 - Lấy key và region từ Azure Portal (Speech resource).
+- Có thể sử dụng DEFAULT_VOICE khác như vi-VN-NamMinhNeural được Azure cung cấp
 
 5. **Chạy ứng dụng**
    ```bash
