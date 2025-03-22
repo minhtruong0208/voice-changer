@@ -1,4 +1,4 @@
-### Steps
+# Steps
 1. **Clone repository:**
    ```bash
    git clone https://github.com/minhtruong0208/voice-changer.git
