@@ -26,3 +26,13 @@
    ```bash
    python main.py
 - API sẽ chạy tại http://localhost:8000
+
+# Kiểm tra API
+- Công cụ: Postman hoặc curl.
+- Request mẫu:
+-- Với văn bản:
+  ```bash
+  POST http://localhost:8000/voice-changer/
+  Content-Type: multipart/form-data
+` Body:
+     - text: "Xin chào mọi người"
