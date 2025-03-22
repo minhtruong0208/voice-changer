@@ -29,18 +29,17 @@
 
 # Kiểm tra API
 - Công cụ: Postman hoặc curl.
-- Request mẫu:
--- Với văn bản:
+- Request mẫu: Với văn bản:
   ```bash
   POST http://localhost:8000/voice-changer/
   Content-Type: multipart/form-data
 ` Body: 
    text: "Xin chào mọi người"
--- Response: File MP3 (output_<uuid>.mp3), lưu tại audio/output/.
--- Với audio:
+- Response: File MP3 (output_<uuid>.mp3), lưu tại audio/output/.
+- Request mẫu: Với văn bản:
   ```bash
   POST http://localhost:8000/voice-changer/
 Content-Type: multipart/form-data
 Body:
    audio: <file.mp3 hoặc .wav>
---Response: File MP3 (<tên_file>.out.mp3), lưu tại audio/output/.
+-Response: File MP3 (<tên_file>.out.mp3), lưu tại audio/output/.
