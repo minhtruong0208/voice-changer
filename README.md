@@ -1,4 +1,9 @@
-# Steps
+# Yêu cầu
+- Hệ điều hành: Windows/Linux/MacOS.
+- Python: 3.9 trở lên.
+- Azure Speech Service: Cần subscription key và region (gói F0 hoặc S0).
+
+# Các bước cài đặt
 1. **Clone repository:**
    ```bash
    git clone https://github.com/minhtruong0208/voice-changer.git
@@ -33,13 +38,11 @@
   ```bash
   POST http://localhost:8000/voice-changer/
   Content-Type: multipart/form-data
-` Body: 
-   text: "Xin chào mọi người"
-- Response: File MP3 (output_<uuid>.mp3), lưu tại audio/output/.
+  Body: text: "Xin chào mọi người"
+Response: File MP3 (output_<uuid>.mp3), lưu tại audio/output/.
 - Request mẫu: Với văn bản:
   ```bash
   POST http://localhost:8000/voice-changer/
-Content-Type: multipart/form-data
-Body:
-   audio: <file.mp3 hoặc .wav>
--Response: File MP3 (<tên_file>.out.mp3), lưu tại audio/output/.
+  Content-Type: multipart/form-data
+  Body: audio: <file.mp3 hoặc .wav>
+Response: File MP3 (<tên_file>.out.mp3), lưu tại audio/output/.
