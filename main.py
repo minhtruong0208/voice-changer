@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException, Form
+from fastapi import FastAPI, UploadFile, File, Form
 from contextlib import asynccontextmanager
 from config import CONFIG
 from factories.speech_factory import SpeechFactory
@@ -7,7 +7,6 @@ from services.tts_service import TTSService
 from services.audio_service import AudioService
 from services.voice_changer_service import VoiceChangerService
 
-# Khởi tạo dependencies
 speech_factory = SpeechFactory()
 stt_service = STTService(CONFIG, speech_factory)
 tts_service = TTSService(CONFIG, speech_factory)
@@ -22,11 +21,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 @app.post("/voice-changer/")
-async def voice_changer(
-    audio: UploadFile = File(None),
-    text: str = Form(None),
-    output_name: str = Form(None)
-):
+async def voice_changer(audio: UploadFile = File(None), text: str = Form(None), output_name: str = Form(None)):
     audio_content = await audio.read() if audio else None
     audio_filename = audio.filename if audio else None
     return await voice_changer_service.process(audio_content, audio_filename, text, output_name)

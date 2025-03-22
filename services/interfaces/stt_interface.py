@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class TTSInterface(ABC):
+class STTInterface(ABC):
     @abstractmethod
-    def text_to_speech(self, text: str, output_path: str) -> None:
+    def speech_to_text(self, audio_path: str) -> str:
         pass

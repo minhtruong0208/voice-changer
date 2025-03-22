@@ -13,6 +13,5 @@ class TTSService(TTSInterface):
         speech_config = self.factory.create_speech_config(self.config)
         synthesizer = self.factory.create_synthesizer(speech_config, output_path)
         synthesis_result = synthesizer.speak_text_async(text).get()
-        
         if synthesis_result.reason != ResultReason.SynthesizingAudioCompleted:
             raise HTTPException(status_code=500, detail="Không thể tạo audio đầu ra")
