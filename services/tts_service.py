@@ -1,8 +1,10 @@
 from fastapi import HTTPException
+from azure.cognitiveservices.speech import ResultReason
 from factories.speech_factory import SpeechFactory
 from config import AzureConfig
+from .interfaces.tts_interface import TTSInterface
 
-class TTSService:
+class TTSService(TTSInterface):
     def __init__(self, config: AzureConfig, factory: SpeechFactory):
         self.config = config
         self.factory = factory
@@ -12,5 +14,5 @@ class TTSService:
         synthesizer = self.factory.create_synthesizer(speech_config, output_path)
         synthesis_result = synthesizer.speak_text_async(text).get()
         
-        if synthesis_result.reason != synthesis_result.SynthesisCompleted:
+        if synthesis_result.reason != ResultReason.SynthesizingAudioCompleted:
             raise HTTPException(status_code=500, detail="Không thể tạo audio đầu ra")

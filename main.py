@@ -1,17 +1,18 @@
-# main.py
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, UploadFile, File, HTTPException, Form
 from contextlib import asynccontextmanager
 from config import CONFIG
 from factories.speech_factory import SpeechFactory
 from services.stt_service import STTService
 from services.tts_service import TTSService
 from services.audio_service import AudioService
+from services.voice_changer_service import VoiceChangerService
 
-# Khởi tạo các dependency
+# Khởi tạo dependencies
 speech_factory = SpeechFactory()
 stt_service = STTService(CONFIG, speech_factory)
 tts_service = TTSService(CONFIG, speech_factory)
 audio_service = AudioService(CONFIG)
+voice_changer_service = VoiceChangerService(stt_service, tts_service, audio_service)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -21,25 +22,14 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 @app.post("/voice-changer/")
-async def voice_changer(audio: UploadFile = File(None), text: str = None, output_name: str = None):
-    if not audio and not text:
-        raise HTTPException(status_code=400, detail="Phải cung cấp ít nhất một trong hai: audio hoặc text")
-    
-    # Xử lý đầu vào
-    if audio:
-        audio_path = audio_service.save_audio(await audio.read(), audio.filename)
-        text = stt_service.speech_to_text(audio_path)
-    
-    # Chuyển văn bản thành audio
-    tts_service.text_to_speech(text, audio_service.temp_wav_path)
-    
-    # Đặt tên file đầu ra
-    if audio:
-        input_filename = audio.filename
-    else:
-        input_filename = output_name if output_name else "output.mp3"  # Mặc định là "output.mp3"
-    
-    return audio_service.get_audio_response(input_filename)
+async def voice_changer(
+    audio: UploadFile = File(None),
+    text: str = Form(None),
+    output_name: str = Form(None)
+):
+    audio_content = await audio.read() if audio else None
+    audio_filename = audio.filename if audio else None
+    return await voice_changer_service.process(audio_content, audio_filename, text, output_name)
 
 if __name__ == "__main__":
     import uvicorn
