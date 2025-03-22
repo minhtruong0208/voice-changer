@@ -34,5 +34,13 @@
   ```bash
   POST http://localhost:8000/voice-changer/
   Content-Type: multipart/form-data
-` Body:
-     - text: "Xin chào mọi người"
+` Body: 
+   text: "Xin chào mọi người"
+-- Response: File MP3 (output_<uuid>.mp3), lưu tại audio/output/.
+-- Với audio:
+  ```bash
+  POST http://localhost:8000/voice-changer/
+Content-Type: multipart/form-data
+Body:
+   audio: <file.mp3 hoặc .wav>
+--Response: File MP3 (<tên_file>.out.mp3), lưu tại audio/output/.
